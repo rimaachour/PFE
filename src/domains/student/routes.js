@@ -199,7 +199,7 @@ router.post('/add', upload.single('image'), (req, res) => {
 
 
 
-// generate a pdf 
+// generate a pdf //////////////nouveau//////////////////////////////////////////////////
  // Create PDF document
  connection.connect((err) => {
   if (err) {
@@ -276,7 +276,7 @@ doc.text(students.image, { width: 100, align: 'left', y });
       
     
     
-    // partie crud 
+    //////////////////////////// partie crud etudiant  ////////////////////////////////////////////////////
 
     // Create a new student
     router.post('/students', (req, res) => {
