@@ -3,7 +3,7 @@ const PDFDocument = require("pdfkit");
 //const fs = require('fs');
 const multer = require('multer');
 const mysql = require("mysql2");
-const pdfMake = require("pdfmake");
+const Pdfmake = require('pdfmake');
 //const exphbs = require('express-handlebars');
 
 const mysqlPormise = require('mysql2/promise') // you import this package when you want to use execute function with the connection
@@ -209,50 +209,81 @@ router.post('/add', upload.single('image'), (req, res) => {
   console.log("Connected to database.");
 });
 
-router.get('/pdf', async (req, res, next) => {
-  connection.query('SELECT * FROM students', (err, results) => {
+
+router.get('/students-pdf', (req, res) => {
+  
+  students =  connection.query('SELECT * FROM students', (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).send('Error retrieving student data from database.');
       return;
     }
+  //[
+    //{ nom: "ahmed", prenom: "ashour", email: "ahmed@yahoo.com", specialite: "fdf", image: "dad" },
+    //{ nom: "rima", prenom: "achour", email: "rima@gmail.com", specialite: "fdf", image: "dad" },
+    //{ nom: "ali", prenom: "mohamed", email: "ali@yahoo.com", specialite: "fdf", image: "dad" },
+    //{ nom: "mohamed", prenom: "hussein", email: "mohamed@gmail.com", specialite: "fdf", image: "dad" },
+ // ]
+  const docDefinition = {
+    content: [
+      {
+        table: {
+          headerRows: 1,
+          widths: ['auto', 'auto', 'auto', 'auto', 'auto'],
+          body: [
+            ['nom', 'prenom', 'email', 'specialite', 'image'],
+            ...results.map(student => [student.nom, student.prenom, student.email, student.specialite, student.image])
+          ],
+          // widths: ['auto', 'auto'], // define the column widths
+          // set the minimum width of the first column to 50
+          columnStyles: {
+            0: {
+              minWidth: 30
+            }
+          }
+        }
+      }
+    ]
 
-    // Create PDF document
-    const doc = new PDFDocument();
-    doc.pipe(res); // Send the PDF file as the response
+    // content: [
+    //   {
+    //     table: {
+    //       body: [
+    //         ['Column 1', 'Column 2'],
+    //         ['Row 1, Column 1', 'Row 1, Column 2'],
+    //         ['Row 2, Column 1', 'Row 2, Column 2']
+    //       ],
+    //       widths: ['auto', 'auto'], // define the column widths
+    //       // set the minimum width of the first column to 50
+    //       columnStyles: {
+    //         0: {
+    //           minWidth: 50
+    //         }
+    //       }
+    //     }
+    //   }
+    // ]
+  };
 
-// Add table headers
-doc.font('Helvetica-Bold');
-doc.fontSize(12);
-doc.text('Nom', { width: 100, align: 'left' });
-doc.text('Prenom', { width: 100, align: 'left' });
-doc.text('Email', { width: 150, align: 'left' });
-doc.text('Specialite', { width: 100, align: 'left' });
-doc.text('Image', { width: 100, align: 'left' });
-
-// Add table rows
-doc.font('Helvetica');
-doc.fontSize(10);
-results.forEach((students, index) => {
-const y = 70 + index * 20; // Calculate vertical position of row
-doc.text(students.nom, { width: 100, align: 'left', y });
-doc.text(students.prenom, { width: 100, align: 'left', y });
-doc.text(students.email, { width: 150, align: 'left', y });
-doc.text(students.specialite, { width: 100, align: 'left', y });
-doc.text(students.image, { width: 100, align: 'left', y });
-});
+  var fonts = {
+    Roboto: {
+      normal: 'fonts/roboto/Roboto-Regular.ttf',
+      bold: 'fonts/roboto/Roboto-Medium.ttf',
+      italics: 'fonts/roboto/Roboto-Italic.ttf',
+      bolditalics: 'fonts/roboto/Roboto-MediumItalic.ttf'
+    }
+  };
 
 
+  let pdfMake = new Pdfmake(fonts);
 
+  const pdfDoc = pdfMake.createPdfKitDocument(docDefinition);
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'attachment; filename=students.pdf');
+  pdfDoc.pipe(res);
+  pdfDoc.end()
+});})
 
-
-
-    // End the PDF document
-    doc.end()
-    ;
-
-});
-});
 
 
 //generate By iD 
