@@ -287,6 +287,54 @@ router.get('/students-pdf', (req, res) => {
 
 
 //generate By iD 
+router.get('/students-pdf/:id', (req, res) => {
+  const id = req.params.id;
+  connection.query('SELECT * FROM students WHERE id = ?', [id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error retrieving student data from database.');
+      return;
+    }
+    if (results.length === 0) {
+      res.status(404).send(`Student with ID ${id} not found.`);
+      return;
+    }
+    const docDefinition = {
+      content: [
+        {
+          table: {
+            headerRows: 1,
+            widths: ['auto', 'auto', 'auto', 'auto', 'auto'],
+            body: [
+              ['nom', 'prenom', 'email', 'specialite', 'image'],
+              [results[0].nom, results[0].prenom, results[0].email, results[0].specialite, results[0].image]
+            ],
+            columnStyles: {
+              0: {
+                minWidth: 30
+              }
+            }
+          }
+        }
+      ]
+    };
+    var fonts = {
+      Roboto: {
+        normal: 'fonts/roboto/Roboto-Regular.ttf',
+        bold: 'fonts/roboto/Roboto-Medium.ttf',
+        italics: 'fonts/roboto/Roboto-Italic.ttf',
+        bolditalics: 'fonts/roboto/Roboto-MediumItalic.ttf'
+      }
+    };
+    let pdfMake = new Pdfmake(fonts);
+    const pdfDoc = pdfMake.createPdfKitDocument(docDefinition);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=student_${id}.pdf`);
+    pdfDoc.pipe(res);
+    pdfDoc.end();
+  });
+});
+
 
 
 
