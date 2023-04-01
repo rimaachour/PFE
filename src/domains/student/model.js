@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize  = require("../../config/db");
 
-const Student = sequelize.define('User', {
+const Student = sequelize.define('students', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -22,8 +22,7 @@ const Student = sequelize.define('User', {
   ConfirmPassword:{ type:DataTypes.STRING,
     allowNull:false,
   },
-  Role:{type:DataTypes.ENUM('student', 'company'),
-    allowNull:false},
+
    
  
   },{

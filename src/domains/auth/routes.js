@@ -20,7 +20,7 @@ const UserController = require("../auth/controller.js")
 
 router.post('/register',UserController.registerUser)
 
-
+router.post('/signIn', UserController.signInUser)
 
 
 

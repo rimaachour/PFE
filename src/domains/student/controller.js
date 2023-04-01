@@ -20,7 +20,7 @@ const createStudent = async (req, res) => {
       Email: req.body. Email,
       Password: req.body.Password,
       ConfirmPassword: req.body.ConfirmPassword,
-      Role: req.body.Role || "student"
+      
 
     
    

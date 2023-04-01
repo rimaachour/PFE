@@ -8,6 +8,7 @@ const path = require("path");
 const express = require('express');
 const app = express();
 
+const authRoutes = require('./domains/auth/routes');
 
 //databaseConnection
 dbConnection.authenticate()
@@ -20,34 +21,50 @@ dbConnection.authenticate()
 app.use(cors());
 //use public folder to serve web pages
 
-app.use(express.static(path.join(__dirname,"public")))
 
 
 //for accepting posts from data
-//app.use(bodyParser({ limit: "50mb" }));
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-  extended:true
-}));
+app.use(bodyParser.json());
+app.use((req,res,next)=>{
+  res.setHeader('Access-control-allow-origin','*');
+  res.setHeader('Access-control-allow-Methods','GET,POST,PUT,DELETE');
+  res.setHeader('Access-control-allow-Methods','Content-Type, Authorization');
+  next();
+
+
+
+});
+//app.use('/register',authRoutes);
+
+
+
+
+
+
+
+//app.use(bodyParser.urlencoded({
+  //extended:true
+//}));
 
 
 //registering routes
-app.get('/', function (req, res) {
-  res.send('Hello World!'); // This will serve your request to '/'.
-});
+//app.get('/', function (req, res) {
+ // res.send('Hello World!'); // This will serve your request to '/'.
+//});
 app.use(routes);
 
 
 //api routes 
 
+app.post('/register', (req, res) => {
+  const { Name, Email, Password, ConfirmPassword, Role } = req.body;
+  // faire quelque chose avec les données d'inscription
+  res.send('Inscription réussie');
+});
 
-app.use("./domains/auth/model",require("./domains/auth/model"));
-app.get("/*",(req,res)=>res.sendFile(path.join(__dirname,"public/index.html")))
-app.use((err, req,res, next) =>{
-  console.log(err);
-  res.send(err)
-})
+
+
 
 //server 
 app.listen(5000, () => {
