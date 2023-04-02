@@ -13,7 +13,7 @@ import { ErrorHandleService } from './error-handle.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private url = "xhttp://localhost:5000/auth/register";
+  private url = "http://localhost:5000/auth/register";
 
 
   httpOptions: { headers: HttpHeaders} = {

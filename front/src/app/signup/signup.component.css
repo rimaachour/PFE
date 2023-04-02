@@ -1,3 +1,104 @@
+.l-radio {
+  padding: 6px;
+  border-radius: 50px;
+  display: inline-flex;
+  cursor: pointer;
+  transition: background .2s ease;
+  margin: 8px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.l-radio:hover, .l-radio:focus-within {
+  background: rgba(#9F9F9F,.1);
+}
+
+.l-radio input {
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: none;
+  border: 0;
+  box-shadow: inset 0 0 0 1px #9F9F9F;
+  box-shadow: inset 0 0 0 1.5px #9F9F9F;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  transition: box-shadow 150ms cubic-bezier(.95,.15,.5,1.25);
+  pointer-events: none;
+}
+
+.l-radio input:focus {
+  outline: none;
+}
+
+.l-radio input:checked {
+  box-shadow: inset 0 0 0 6px #072b79;
+}
+
+.l-radio span {
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 20px;
+  padding: 0 8px;
+  color: #072b79;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+
+
+
+
+.l-radio1 {
+  padding: 6px;
+  border-radius: 50px;
+  display: inline-flex;
+  cursor: pointer;
+  transition: background .2s ease;
+  margin: 8px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.l-radio1:hover, .l-radio1:focus-within {
+  background: rgba(#9F9F9F,.1);
+}
+
+.l-radio1 input {
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: none;
+  border: 0;
+  box-shadow: inset 0 0 0 1px #9F9F9F;
+  box-shadow: inset 0 0 0 1.5px #9F9F9F;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  transition: box-shadow 150ms cubic-bezier(.95,.15,.5,1.25);
+  pointer-events: none;
+}
+
+.l-radio1 input:focus {
+  outline: none;
+}
+
+.l-radio1 input:checked {
+  box-shadow: inset 0 0 0 6px #072b79;
+}
+
+.l-radio1 span {
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 20px;
+  padding: 0 8px;
+  color: #072b79;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+
 h1 {
     font-weight: bold;
     margin: 0;
@@ -7,7 +108,7 @@ h1 {
   h2 {
     text-align: center;
   }
-  
+
   p {
     font-size: 14px;
     font-weight: 100;
@@ -16,13 +117,12 @@ h1 {
     margin: 20px 0 30px;
   }
   
-  span {
-    font-size: 12px;
-  }
-
+ 
 
   .error{
     color: red;
+    font-size: 10px;
+
   }
   
   a {
@@ -205,7 +305,7 @@ h1 {
   }
   
   .social-container {
-    margin: 20px 0;
+    margin: 8px 0;
   }
   
   .social-container a {
@@ -215,31 +315,6 @@ h1 {
     justify-content: center;
     align-items: center;
     margin: 0 5px;
-    height: 40px;
-    width: 40px;
-  }
-  
-  footer {
-      background-color: #222;
-      color: #fff;
-      font-size: 14px;
-      bottom: 0;
-      position: fixed;
-      left: 0;
-      right: 0;
-      text-align: center;
-      z-index: 999;
-  }
-  
-  footer p {
-      margin: 10px 0;
-  }
-  
-  footer i {
-      color: #9ab5ee;
-  }
-  
-  footer a {
-      color: #3c97bf;
-      text-decoration: none;
+    height: 30px;
+    width: 30px;
   }

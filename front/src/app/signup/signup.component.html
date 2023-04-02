@@ -8,13 +8,23 @@
                 <a routerLink="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 <a routerLink="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
-            
+            <div>
+                <label for="f-option1" class="l-radio1">
+                    <input type="radio" id="f-option1" name="Role"  value ="student" tabindex="1" formControlName="Role">
+                    <span>Student</span>
+                  </label>
+                  <label for="s-option1" class="l-radio1">
+                    <input type="radio" id="s-option1" name="Role" value="student" tabindex="2" formControlName="Role">
+                    <span>Company</span>
+                  </label>
+    
+              </div>
             <div class="form-group">
              <input type="text" placeholder="Name" id="name" class="name" formControlName="name"/>
              <span class="error"></span>
           </div>
-          <!--<div class="form-group">
-            <input type="hidden" value="student" id="name" class="name" formControlName="role"/>
+       <!--<div class="form-group">
+            <input type="hidden" value="student" formControlName="Role"/>
          </div>-->
           <div class="form-group">
              <input type="email" placeholder="Email" id="email" class="email" formControlName="email"/>
@@ -25,40 +35,50 @@
              <span class="error"></span>
           </div>
           <div class="form-group">
-             <input type="password" placeholder="Confirm password" id="Conpassword" class="Conpass" formControlName="password"/>
+             <input type="password" placeholder="Confirm password" id="Conpassword" class="Conpass" formControlName="confirmpassword"/>
              <span class="error"></span>
           </div>
-            <button [disabled]="!signupForm.valid" type="submit">Sign Up</button>
+            <button [disabled]="!signupForm.valid" type="submit" >Sign Up</button>
         </form>
     </div>
     <div class="form-container sign-in-container">
-        <form action="#">
+        <form [formGroup]="signupForm" (ngSubmit)="signup()" novalidate>
             <h1>Create account Company</h1>
             <div class="social-container">
                 <a routerLink="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 <a routerLink="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 <a routerLink="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
+            <div>
+                <label for="f-option" class="l-radio">
+                    <input type="radio" id="f-option"   name="Role1"  value ="Company" tabindex="3" formControlName="Role1">
+                    <span>Student</span>
+                  </label>
+                  <label for="s-option" class="l-radio">
+                    <input type="radio" id="s-option"  name="Role1"  value ="Company" tabindex="4" formControlName="Role1">
+                    <span>Company</span>
+                  </label>
+             
+    
+              </div>
             <div class="form-group">
-             <input type="text" placeholder="Name" id="name" class="name"/>
+             <input type="text" placeholder="Name" id="name" class="name"  formControlName="name"/>
+             <span class="error"></span>
+          </div>
+         
+          <div class="form-group">
+             <input type="email" placeholder="Email" id="email" class="email" formControlName="email"/>
              <span class="error"></span>
           </div>
           <div class="form-group">
-            <input type="hidden" value="company" id="name" class="name"/>
-         </div>
-          <div class="form-group">
-             <input type="email" placeholder="Email" id="email" class="email"/>
+             <input type="password" placeholder="Password" id="password" class="pass" formControlName="password"/>
              <span class="error"></span>
           </div>
           <div class="form-group">
-             <input type="password" placeholder="Password" id="password" class="pass"/>
+             <input type="password" placeholder="Confirm password" id="Conpassword" class="Conpass"  formControlName="confirmpassword"/>
              <span class="error"></span>
           </div>
-          <div class="form-group">
-             <input type="password" placeholder="Confirm password" id="Conpassword" class="Conpass"/>
-             <span class="error"></span>
-          </div>
-            <button routerLink="/company">Sign Up</button>
+            <button [disabled]="!signupForm.valid" type="submit">Sign Up</button>
         </form>
     </div>
     <div class="overlay-container">
