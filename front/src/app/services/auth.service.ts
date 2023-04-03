@@ -13,7 +13,8 @@ import { ErrorHandleService } from './error-handle.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private url = "http://localhost:5000/auth/register";
+  private urlUser = "http://localhost:5000/auth/registerUser";
+  private urlCompany = "http://localhost:5000/auth/registerCompany";
 
 
   httpOptions: { headers: HttpHeaders} = {
@@ -26,13 +27,23 @@ export class AuthService {
     ) { }
 
 
-  signup(user: Omit<user,"id">): Observable<user>{
+  signupUser(user: Omit<user,"id">): Observable<user>{
     return this.http
-    .post<user>(this.url, user,this.httpOptions)
+    .post<user>(this.urlUser, user,this.httpOptions)
     .pipe(
       first(),
       catchError(this.errorHandlerService.handleError<user>("signup"))
     );
 
   }
+  signupCompany(user: Omit<user,"id">): Observable<user>{
+    return this.http
+    .post<user>(this.urlCompany, user,this.httpOptions)
+    .pipe(
+      first(),
+      catchError(this.errorHandlerService.handleError<user>("signup"))
+    );
+
+  }
+
 }

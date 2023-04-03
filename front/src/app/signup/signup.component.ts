@@ -11,7 +11,8 @@ declare var $: any;
 export class SignupComponent implements OnInit {
 
     signupForm!: FormGroup;
-
+    Role!: string;
+    Role1!: string
     /*constructor (private http:HttpClient){
         this.http.get('http://localhost:5000/AllStudents').subscribe(data=>console.log(data))
     }*/
@@ -119,13 +120,7 @@ createFormGroup(): FormGroup{
         confirmpassword: new FormControl("", [
                 Validators.required,
                 Validators.minLength(7)]),
-                Role: new FormGroup({
-                Role: new FormControl(false),
-                }),
-                Role1: new FormGroup({
-                Role1: new FormControl(false),
-                other: new FormControl(false),
-                })
+                
     });
 
 }
@@ -148,12 +143,22 @@ createFormGroup(): FormGroup{
 
 
 
-signup():void{
+signupUser():void{
     console.log(this.signupForm.value);
     
     this.authService
-    .signup(this.signupForm.value)
+    .signupUser(this.signupForm.value)
     .subscribe((msg) => console.log(msg));
 
 }
+signupCompany():void{
+       
+    this.authService
+    .signupCompany(this.signupForm.value)
+    .subscribe((msg) => console.log(msg)); 
+}
+onSubmit() {
+    console.log('Group 1 value:', this.Role);
+    console.log('Group 2 value:', this.Role1);
+      }
 }

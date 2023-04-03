@@ -28,7 +28,7 @@ import { CompanyprofileComponent } from './companyprofile/companyprofile.compone
 import { StudentexplorepageComponent } from './studentexplorepage/studentexplorepage.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,8 @@ import { ReactiveFormsModule } from '@angular/forms';
    /* BrowserAnimationsModule,*/
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
