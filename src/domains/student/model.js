@@ -23,6 +23,9 @@ const Student = sequelize.define('students', {
     allowNull:false,
   },
 
+  Role:{type:DataTypes.ENUM('student', 'company'),
+    allowNull:false},
+
    
  
   },{

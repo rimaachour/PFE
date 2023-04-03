@@ -18,7 +18,8 @@ const { Router } = require("express");
 
 const UserController = require("../auth/controller.js")
 
-router.post('/register',UserController.registerUser)
+router.post('/registerUser',UserController.registerUser)
+router.post('/registerCompany',UserController.registerCompany)
 
 router.post('/signIn', UserController.signInUser)
 

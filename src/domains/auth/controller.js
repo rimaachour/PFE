@@ -5,36 +5,68 @@ const Entreprise = require("../entreprise/model")
 const bcrypt = require('bcrypt');
 
 const registerUser = async (req, res, next) => {
-    const { Name, Email, Password, ConfirmPassword, Role } = req.body;
+    const { name, email, password, confirmPassword } = req.body;
   
     try {
       // Vérifie si les mots de passe correspondent
-      if (Password !== ConfirmPassword) {
+      if (password !== confirmPassword) {
         throw new Error('Les mots de passe ne correspondent pas');
       }
   
       let messageBienvenue = 'welcome User';
 
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const confirmPasswordHash = await bcrypt.hash(confirmPassword, 10);
 
-      
-      
-      const hashedPassword = await bcrypt.hash(Password, 10);
-      const user = await User.create({
-        Name,
-        Email,
-        Password: hashedPassword,
-        Role,
-        ConfirmPassword
-      });
-  
-      return res.status(201).json({
-        messageBienvenue,
-        id: user.id
-      });
+      const newUser = new User({
+        name: name,
+        email: email,
+        password: hashedPassword,
+        confirmPassword:confirmPasswordHash,
+        Role: "student"
+      })
+
+      const saved= await newUser.save();
+      if (saved) {
+        return res.status(200).send(newUser)
+      }
+
     } catch (err) {
-      return next(err);
+      return next(err.message);
     }
   };
+
+const registerCompany = async (req, res, next) => {
+  const { name, email, password, confirmPassword } = req.body;
+
+  try {
+    // Vérifie si les mots de passe correspondent
+    if (password !== confirmPassword) {
+      throw new Error('Les mots de passe ne correspondent pas');
+    }
+
+    let messageBienvenue = 'welcome company';
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const confirmPasswordHash = await bcrypt.hash(confirmPassword, 10);
+
+    const newUser = new User({
+      name: name,
+      email: email,
+      password: hashedPassword,
+      confirmPassword:confirmPasswordHash,
+      Role: "company"
+    })
+
+    const saved= await newUser.save();
+    if (saved) {
+      return res.status(200).send(newUser)
+    }
+
+  } catch (err) {
+    return next(err.message);
+  }
+};
   // sign in
 const signInUser = async (req, res, next) => {
   const { Email, Password } = req.body;
@@ -64,4 +96,4 @@ const signInUser = async (req, res, next) => {
   }
 };
   
-  module.exports = { registerUser,signInUser };
+  module.exports = { registerUser,signInUser,registerCompany };
